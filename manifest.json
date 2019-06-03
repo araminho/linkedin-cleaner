@@ -1,18 +1,24 @@
 {
   "manifest_version": 2,
  
-  "name": "Linkedin cleaner",
+  "name": "LinkedIn cleaner",
   "version": "0.1.0",
-  "description": "Linkedin feed cleaner",
+  "description": "LinkedIn feed cleaner",
   
   "icons": { "16": "linkedin.png",
            "48": "linkedin.png",
           "128": "linkedin.png" 
 		  },
- 
+  "browser_action": {
+    "default_title": "LinkedIn cleaner",
+    "default_popup": "popup.html"
+  },
   "content_scripts": [{
     "js": ["jquery.min.js", "content.js"],
     "matches": ["https://www.linkedin.com/*"]
-  }]
+  }],
+  "permissions": [
+    "storage"
+  ]
  
 }
