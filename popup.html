@@ -8,18 +8,25 @@
             white-space: nowrap;
         }
 
-        h1 {
+        h2 {
             font-size: 15px;
+            margin-top: 10px;
+            margin-bottom: 5px;
         }
 
         input {
             margin: 10px;
             width: 28px;
         }
-        #container {
-            align-items: center;
-            /*display: flex;*/
-            justify-content: space-between;
+
+        label {
+            min-width: 130px;
+            display: inline-block;
+        }
+
+        #customKeywords {
+            width: 150px;
+            margin: 5px 0;
         }
     </style>
     <script language="javascript" src="jquery.min.js"></script>
@@ -27,7 +34,14 @@
 </head>
 <body>
 
-<h1>Block by keywords</h1>
+<h2>News feed sorting</h2>
+<div>
+    <label for="sort">Sort by Recent</label>
+    <input id="sort" type="checkbox" value="1"/>
+</div>
+
+
+<h2>Block by keywords</h2>
 <div id="container">
     <div>
         <label for="likes">Likes this</label>
@@ -41,8 +55,27 @@
         <label for="loves">Loves this</label>
         <input id="loves" type="checkbox" value="loves this"/>
     </div>
+    <div>
+        <label for="insightful">Finds this insightful</label>
+        <input id="insightful" type="checkbox" value="finds this insightful"/>
+    </div>
+    <div>
+        <label for="celebrates">Celebrates this</label>
+        <input id="celebrates" type="checkbox" value="celebrates this"/>
+    </div>
+</div>
+
+
+<div>
+    <h2>Custom keyword(s)</h2>
+    <div>
+        <label for="customKeywords">Separate by commas</label>
+        <br/>
+        <textarea id="customKeywords"></textarea>
+    </div>
 
 </div>
+
 <button id="okButton">Ok</button>
 </body>
 </html>

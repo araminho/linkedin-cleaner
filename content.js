@@ -2,7 +2,7 @@ $(document).ready(function () {
     chrome.storage.local.get('keywords', function (result) {
         let keywords = [];
         if (result) {
-            keywords = result.keywords;
+            keywords = result.keywords.split(',');
         }
         else {
             console.log("Storage is empty!");
