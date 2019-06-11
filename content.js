@@ -10,7 +10,7 @@ $(document).ready(function () {
                     $('.relative.ember-view').each(function () {
                         let me = $(this);
                         for (let i = 0; i < keywords.length; i++) {
-                            if (me.html().includes(keywords[i])) {
+                            if (keywords[i].length && me.html().includes(keywords[i])) {
                                 me.css('display', 'none');
                             }
                         }
