@@ -3,13 +3,17 @@ $(document).ready(function () {
     // clearStorage();
 
     $('#saveButton').on('click', function () {
+
         save();
+
         window.close();
-        /*chrome.tabs.getSelected(null, function(tab) {
-            const code = 'window.location.reload();';
-            chrome.tabs.executeScript(tab.id, {code: code});
-        });*/
-        // alert('Please reload the page, so the changes take effect');
+
+        if ($('#reload').is(':checked')) {
+            chrome.tabs.query({active: true, currentWindow: true}, function (arrayOfTabs) {
+                const code = 'window.location.reload();';
+                chrome.tabs.executeScript(arrayOfTabs[0].id, {code: code});
+            });
+        }
     });
 });
 
@@ -32,7 +36,13 @@ function save() {
     });
 
     const customKeywords = $('#customKeywords').val();
-    const customKeywordsArray = customKeywords.split(',').filter(function(el) {return el.length !== 0});
+    const customKeywordsArray = customKeywords.split(',')
+        .filter(function (el) {
+            return el.length !== 0
+        })
+        .map(function (e) {
+            return e.trim();
+        });
 
     if (customKeywords.length > 0) {
         keywords = keywords.concat(customKeywordsArray);
@@ -54,7 +64,6 @@ function restoreOptions() {
         if (result.keywords) {
             keywords = result.keywords.split(',');
             $('#container input').each(function () {
-                // console.log($(this).val());
                 if (keywords.includes($(this).val())) {
                     $(this).prop('checked', true);
                 }
