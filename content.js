@@ -7,15 +7,34 @@ $(document).ready(function () {
             // Hide posts containing keywords
             if (keywords.length > 0) {
                 setInterval(function () {
-                    $('.relative.ember-view').each(function () {
-                        let me = $(this);
+                    let displayingPosts = 0;
+                    const allPosts = $('.relative.ember-view:not([data-id])');
+                    allPosts.each(function () {
+                        const me = $(this);
+                        let postIsBlocked = false;
                         for (let i = 0; i < keywords.length; i++) {
                             if (keywords[i].length && me.html().includes(keywords[i])) {
                                 me.css('display', 'none');
+                                postIsBlocked = true;
                             }
                         }
+                        if (postIsBlocked === false) {
+                            displayingPosts++;
+                        }
                     });
-                }, 1000);
+
+                    // Handling the case when almost all posts are blocked and the page doesn't scroll to load more
+                    // Usually 2 posts are enough to fill the height of the page
+
+                    if (displayingPosts < 2) {
+                        allPosts.last().css('display', 'block');
+                        displayingPosts ++;
+                    }
+                    if (displayingPosts < 2) {
+                        allPosts.first().css('display', 'block');
+                        displayingPosts ++;
+                    }
+                }, 2000);
             }
         }
 
