@@ -1,7 +1,7 @@
 $(document).ready(function () {
     chrome.storage.local.get('keywords', function (result) {
         let keywords = [];
-        if (result) {
+        if (result && result.keywords) {
             keywords = result.keywords.split(',');
 
             // Hide posts containing keywords
@@ -34,7 +34,7 @@ $(document).ready(function () {
                         allPosts.first().css('display', 'block');
                         displayingPosts ++;
                     }
-                }, 2000);
+                }, 1000);
             }
         }
 
@@ -43,8 +43,14 @@ $(document).ready(function () {
     chrome.storage.local.get('sort_by_recent', function (result) {
         if (result.sort_by_recent) {
             // Switch to Recent news
-            $('.sort-dropdown__text-container').click();
-            $('.sort-dropdown__list-item button.t-12').last().click();
+            $('artdeco-dropdown-trigger .display-flex').click();
+
+            $('artdeco-dropdown-item').each(function () {
+                let value = $(this).html().trim();
+                if (value == "Recent") {
+                    $(this).click();
+                }
+            })
         }
     });
 });

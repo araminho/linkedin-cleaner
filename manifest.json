@@ -2,7 +2,7 @@
   "manifest_version": 2,
  
   "name": "LinkedIn Cleaner",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "LinkedIn feed cleaner",
   
   "icons": { "16": "linkedin.png",
@@ -18,9 +18,7 @@
     "matches": ["https://www.linkedin.com/*"]
   }],
   "permissions": [
-    "tabs",
-    "http://*/*",
-    "https://*/*",
+    "https://www.linkedin.com/*",
     "storage"
   ]
  
