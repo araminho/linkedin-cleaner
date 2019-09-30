@@ -47,8 +47,9 @@ $(document).ready(function () {
 
             $('artdeco-dropdown-item').each(function () {
                 let value = $(this).html().trim();
-                if (value == "Recent") {
+                if (value.includes("Recent")) {
                     $(this).click();
+                    $('artdeco-dropdown-trigger .display-flex').click();
                 }
             })
         }
