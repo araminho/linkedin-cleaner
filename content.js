@@ -8,7 +8,9 @@ $(document).ready(function () {
             if (keywords.length > 0) {
                 setInterval(function () {
                     let displayingPosts = 0;
-                    const allPosts = $('.relative.ember-view:not([data-id])');
+                    const allPosts = $('div.relative.ember-view').filter(function() {
+                        return this.classList[2] == null;
+                    });
                     allPosts.each(function () {
                         const me = $(this);
                         let postIsBlocked = false;
@@ -16,6 +18,7 @@ $(document).ready(function () {
                             if (keywords[i].length && me.html().includes(keywords[i])) {
                                 me.css('display', 'none');
                                 postIsBlocked = true;
+                                break;
                             }
                         }
                         if (postIsBlocked === false) {
@@ -26,14 +29,15 @@ $(document).ready(function () {
                     // Handling the case when almost all posts are blocked and the page doesn't scroll to load more
                     // Usually 2 posts are enough to fill the height of the page
 
-                    if (displayingPosts < 2) {
+                    if (displayingPosts < 10) {
                         allPosts.last().css('display', 'block');
                         displayingPosts ++;
                     }
-                    if (displayingPosts < 2) {
+                    if (displayingPosts < 10) {
                         allPosts.first().css('display', 'block');
                         displayingPosts ++;
                     }
+
                 }, 1000);
             }
         }
@@ -42,16 +46,21 @@ $(document).ready(function () {
 
     chrome.storage.local.get('sort_by_recent', function (result) {
         if (result.sort_by_recent) {
+            // TODO not working
             // Switch to Recent news
-            $('artdeco-dropdown-trigger .display-flex').click();
+            $('.artdeco-dropdown__trigger .display-flex').click();
 
-            $('artdeco-dropdown-item').each(function () {
-                let value = $(this).html().trim();
-                if (value.includes("Recent")) {
-                    $(this).click();
-                    $('artdeco-dropdown-trigger .display-flex').click();
-                }
-            })
+            setTimeout(function () {
+                $('.artdeco-dropdown__item').each(function () {
+                    let value = $(this).html().trim();
+                    if (value.includes("Recent")) {
+                        $(this).click();
+                        $('.artdeco-dropdown__trigger .display-flex').click();
+                    }
+                })
+            }, 600);
+
+
         }
     });
 });

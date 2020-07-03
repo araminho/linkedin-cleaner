@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "L Cleaner",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "LinkedIn feed cleaner",
   "icons": {
     "16": "logo.png",
