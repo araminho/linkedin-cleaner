@@ -4,11 +4,11 @@ $(document).ready(function () {
         if (result && result.keywords) {
             keywords = result.keywords.split(',');
 
-            // Hide posts containing keywords
+            // Remove posts containing keywords
             if (keywords.length > 0) {
                 setInterval(function () {
                     let displayingPosts = 0;
-                    const allPosts = $('div.relative.ember-view').filter(function() {
+                    const allPosts = $('div.relative .occludable-update.ember-view').filter(function() {
                         return this.classList[2] == null;
                     });
                     allPosts.each(function () {
@@ -16,7 +16,7 @@ $(document).ready(function () {
                         let postIsBlocked = false;
                         for (let i = 0; i < keywords.length; i++) {
                             if (keywords[i].length && me.html().includes(keywords[i])) {
-                                me.css('display', 'none');
+                                me.remove();
                                 postIsBlocked = true;
                                 break;
                             }
@@ -29,16 +29,19 @@ $(document).ready(function () {
                     // Handling the case when almost all posts are blocked and the page doesn't scroll to load more
                     // Usually 2 posts are enough to fill the height of the page
 
-                    if (displayingPosts < 10) {
+                    /*if (displayingPosts < 10) {
                         allPosts.last().css('display', 'block');
                         displayingPosts ++;
                     }
                     if (displayingPosts < 10) {
                         allPosts.first().css('display', 'block');
                         displayingPosts ++;
-                    }
+                    }*/
 
-                }, 1000);
+                    console.log("All posts: " + allPosts.length);
+                    console.log("Displaying posts: " + displayingPosts);
+
+                }, 100);
             }
         }
 
